@@ -2,18 +2,21 @@ package com.lgrochal.socialapp.interfaces.dto;
 
 import com.lgrochal.socialapp.model.Post;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 public class PostDTO {
 
     private String content;
-    private Date createdDate;
+    private java.util.Date createdDate;
     private Long id;
 
     public PostDTO(){}
 
     public PostDTO(Post post){
         this.content = post.getContent();
+        this.createdDate = new Date(post.getCreatedDate().getTime());
+        this.id = post.getId();
     }
 
     public String getContent() {
@@ -34,6 +37,10 @@ public class PostDTO {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

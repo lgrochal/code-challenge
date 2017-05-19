@@ -1,0 +1,7 @@
+curl -X POST -d '{"content":"some awesome post"}' http://localhost:8080/v1/api/lgrochal/posts -H "Content-Type: application/json"
+
+curl -X POST -d '{"content":"some other user post"}' http://localhost:8080/v1/api/lgrochal1/posts -H "Content-Type: application/json"
+
+curl -X POST -d '{"followerNickname":"lgrochal", "followingNickname":"lgrochal1"}' http://localhost:8080/v1/api/follow -H "Content-Type: application/json"
+
+curl -X GET http://localhost:8080/v1/api/lgrochal/timeline -H "Content-Type: application/json"

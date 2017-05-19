@@ -7,7 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import java.sql.Date;
+import javax.persistence.PrePersist;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 @Entity
 public class FollowEvent {
@@ -23,12 +25,14 @@ public class FollowEvent {
     @ManyToOne
     private User following;
 
-    private Date createdDate;
+    private Timestamp createdDate;
 
-
-    public FollowEvent(){
-        this.createdDate = new Date(new java.util.Date().getTime());
+    @PrePersist
+    public void setCreatedDate(){
+        this.createdDate = new Timestamp(new java.util.Date().getTime());
     }
+
+    public FollowEvent(){}
 
 
     public FollowEvent follower(User follower){

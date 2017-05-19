@@ -9,9 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 public class Post {
@@ -24,7 +26,7 @@ public class Post {
     @NotNull
     private String content;
 
-    private Date createdDate;
+    private Timestamp createdDate;
 
     @ManyToOne
     @JoinColumn
@@ -32,13 +34,17 @@ public class Post {
     private User user;
 
     public Post(){
-        this.createdDate = new Date(new java.util.Date().getTime());
+    }
+
+    @PrePersist
+    public void setCreatedDate(){
+        this.createdDate = new Timestamp(new java.util.Date().getTime());
     }
 
     public Post(PostDTO postDTO){
         this.id = postDTO.getId();
         this.content = postDTO.getContent();
-        this.createdDate = postDTO.getCreatedDate();
+        this.createdDate = postDTO.getCreatedDate() != null ? new Timestamp(postDTO.getCreatedDate().getTime()): null;
     }
 
 
@@ -50,11 +56,11 @@ public class Post {
         return user;
     }
 
-    public Date getCreatedDate() {
+    public Timestamp getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
     }
 
